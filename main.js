@@ -17,31 +17,32 @@ function getPlayerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection === "Rock") {
-        if (computerSelection === "Paper") {
-            return "You lose! Paper beats Rock.";
-        } else if (computerSelection === "Scissors") {
-            return "You win! Rock beats Scissors.";
-        }
-    } else if (playerSelection === "Paper") {
-        if (computerSelection === "Rock") {
-            return "You win! Paper beats Rock.";
-        } else if (computerSelection === "Scissors") {
-            return "You lose! Scissors beat Paper.";
-        }
-    } else if (playerSelection === "Scissors") {
-        if (computerSelection === "Paper") {
-            return "You win! Scissors beat Paper.";
-        } else if (computerSelection === "Rock") {
-            return "You lose! Rock beats Scissors.";
-        }
+    const pointsGained = [0, 0];
+
+    if ((playerSelection === "Rock" && computerSelection === "Scissors") 
+        || (playerSelection === "Paper" && computerSelection === "Rock")
+        || (playerSelection === "Scissors" && computerSelection === "Paper")) {
+            pointsGained[0]++;
+    } else if ((playerSelection === "Rock" && computerSelection === "Paper") 
+    || (playerSelection === "Paper" && computerSelection === "Scissors")
+    || (playerSelection === "Scissors" && computerSelection === "Rock")) {
+        pointsGained[1]++;
     }
-    
-    return "It's a tie!";
+
+    return pointsGained;
 }
 
-const computerSelection = getComputerChoice();
-const playerSelection = getPlayerChoice();
+function getResultMessage(pointsGained, playerSelection, computerSelection) {
+    let message = "";
+    if (pointsGained[0] === 1) {
+        message += "You win! ";
+        playerSelection === "Scissors" ? message += `Scissors beat ${computerSelection}.` : message += `${playerSelection} beats ${computerSelection}.`;
+    } else if (pointsGained[1] === 1) {
+        message += "You lose! ";
+        computerSelection === "Scissors" ? message += `Scissors beat ${playerSelection}.` : message += `${computerSelection} beats ${playerSelection}.`;
+    } else {
+        message = "It's a tie!";
+    }
 
-console.log(playerSelection, computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+    return message;
+}
