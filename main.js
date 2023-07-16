@@ -46,3 +46,35 @@ function getResultMessage(pointsGained, playerSelection, computerSelection) {
 
     return message;
 }
+
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    let result = "";
+
+    for (let i = 0; i < 5; i++) {
+        const computerSelection = getComputerChoice();
+        const playerSelection = getPlayerChoice();
+        const pointsGained = playRound(playerSelection, computerSelection);
+        console.log(getResultMessage(pointsGained, playerSelection, computerSelection));
+        playerScore += pointsGained[0];
+        computerScore += pointsGained[1];
+    }
+
+    if (playerScore > computerScore) {
+        result += "You won! ";
+    } else if (computerScore > playerScore) {
+        result += "You lost! ";
+    } else {
+        result += "It's a tie!";
+    }
+
+    result += `The final score is:
+Player: ${playerScore}
+Computer: ${computerScore}`;
+
+    return result;
+}
+
+
+console.log(game());
