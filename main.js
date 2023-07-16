@@ -59,8 +59,8 @@ function getFinalResultMessage(playerScore, computerScore) {
     }
     
     resultMessage += `The final score is:
-    Player: ${playerScore}
-    Computer: ${computerScore}`;
+Player: ${playerScore}
+Computer: ${computerScore}`;
     
     return resultMessage;
 }
